@@ -12,26 +12,28 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
-      <h1 className="landing-title">Welcome to BridgeUp</h1>
-      <p className="landing-subtitle">
-        Connect mentors and mentees for meaningful growth and conversations.
-      </p>
-      <div className="landing-buttons">
-        <button
-          className="landing-button mentee"
-          onClick={() => handleSelectRole('mentee')}
-        >
-          I'm a Mentee
-        </button>
-        <button
-          className="landing-button mentor"
-          onClick={() => handleSelectRole('mentor')}
-        >
-          I'm a Mentor
-        </button>
+      <div className="landing-content">
+        <h1 className="landing-title">Welcome to BridgeUp</h1>
+        <p className="landing-subtitle">
+          Connect mentors and mentees for meaningful growth and conversations.
+        </p>
+        <div className="landing-buttons">
+          <button
+            className="landing-button mentee"
+            onClick={() => handleSelectRole('mentee')}
+          >
+            I'm a Mentee
+          </button>
+          <button
+            className="landing-button mentor"
+            onClick={() => handleSelectRole('mentor')}
+          >
+            I'm a Mentor
+          </button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default LandingPage;

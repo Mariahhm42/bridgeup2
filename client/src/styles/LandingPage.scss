@@ -1,57 +1,76 @@
+/* Ensure full-screen layout with zero margin */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif; // optional, clean default
+}
+
 .landing-container {
-    min-height: 100vh;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .landing-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #2d3748;
-    margin-bottom: 1rem;
-  }
-  
-  .landing-subtitle {
-    font-size: 1.125rem;
-    color: #4a5568;
-    margin-bottom: 2rem;
-    max-width: 24rem;
-  }
-  
-  .landing-buttons {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .landing-button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .landing-button.mentee {
-    background-color: #3182ce;
-  }
-  
-  .landing-button.mentee:hover {
-    background-color: #2b6cb0;
-  }
-  
-  .landing-button.mentor {
-    background-color: #38a169;
-  }
-  
-  .landing-button.mentor:hover {
-    background-color: #2f855a;
-  }
-  
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Optional wrapper to control content width */
+.landing-content {
+  max-width: 600px;
+  width: 100%;
+}
+
+.landing-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.landing-subtitle {
+  font-size: 1.125rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  max-width: 24rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.landing-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+  border: none;
+}
+
+.landing-button.mentee {
+  background-color: #3182ce;
+}
+
+.landing-button.mentee:hover {
+  background-color: #2b6cb0;
+}
+
+.landing-button.mentor {
+  background-color: #38a169;
+}
+
+.landing-button.mentor:hover {
+  background-color: #2f855a;
+}
