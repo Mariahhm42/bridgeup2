@@ -1,19 +1,18 @@
 const express = require('express');
-const cors = require('cors'); // Optional: if using client/server on different ports
+const cors = require('cors');
 const app = express();
-const PORT = 8000; // or whatever port you're using
+const PORT = 8000;
 
 // In-memory storage
 const mentorsQueue = [];
 const menteesQueue = [];
-const users = []; // NEW: stores user profiles
+const users = [];
 
 // Middleware
-app.use(cors()); // Only needed if frontend is on a different port
+app.use(cors());
 app.use(express.json());
 
-// --------------------
-// POST /api/users — create user
+// Create user
 app.post('/api/users', (req, res) => {
   const { name, field, bio, role } = req.body;
 
@@ -21,16 +20,14 @@ app.post('/api/users', (req, res) => {
     return res.status(400).json({ error: 'Missing user data' });
   }
 
-  const id = String(Date.now()); // Simple unique ID
+  const id = String(Date.now());
   const newUser = { id, name, field, bio, role };
 
   users.push(newUser);
-
   res.status(201).json(newUser);
 });
 
-// --------------------
-// GET /api/users/:id — fetch user by ID
+// Fetch user by ID
 app.get('/api/users/:id', (req, res) => {
   const userId = req.params.id;
   const user = users.find((u) => u.id === userId);
@@ -42,8 +39,7 @@ app.get('/api/users/:id', (req, res) => {
   res.json({ id: user.id, name: user.name });
 });
 
-// --------------------
-// POST /api/match — match mentor/mentee
+// Match mentor/mentee
 app.post('/api/match', (req, res) => {
   const { id, role } = req.body;
 
@@ -74,7 +70,6 @@ app.post('/api/match', (req, res) => {
   return res.status(400).json({ error: "Invalid role" });
 });
 
-// --------------------
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

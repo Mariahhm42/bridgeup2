@@ -7,6 +7,7 @@ function ProfileForm() {
   const [bio, setBio] = useState("");
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(false);
+  const [waitingForMatch, setWaitingForMatch] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,26 +36,28 @@ function ProfileForm() {
       localStorage.setItem("userId", data.id);
       localStorage.setItem("userRole", data.role);
 
-      // Attempt to match
-      const matchRes = await fetch("/api/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: data.id, role: data.role }),
-      });
+      // Start polling for match every 5 seconds
+      setWaitingForMatch(true);
+      const intervalId = setInterval(async () => {
+        const matchRes = await fetch("/api/match", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: data.id, role: data.role }),
+        });
 
-      const matchData = await matchRes.json();
+        const matchData = await matchRes.json();
 
-      if (matchData.matched) {
-        // Save IDs for use in session
-        localStorage.setItem("mentorId", matchData.mentorId);
-        localStorage.setItem("menteeId", matchData.menteeId);
-        navigate("/session");
-      } else {
-        alert("Waiting for a match...");
-      }
+        if (matchData.matched) {
+          clearInterval(intervalId);
+          localStorage.setItem("mentorId", matchData.mentorId);
+          localStorage.setItem("menteeId", matchData.menteeId);
+          navigate("/session");
+        }
+      }, 5000);
     } catch (err) {
       console.error("Submission error:", err);
       alert("Something went wrong. Try again.");
+      setWaitingForMatch(false);
     } finally {
       setLoading(false);
     }
@@ -76,7 +79,7 @@ function ProfileForm() {
           Bio:
           <textarea value={bio} onChange={(e) => setBio(e.target.value)} required />
         </label>
-        {loading ? (
+        {(loading || waitingForMatch) ? (
           <div className="spinner" style={{ margin: "20px 0" }}>
             <span>Matching you with a {role === "mentor" ? "mentee" : "mentor"}...</span>
           </div>
