@@ -1,13 +1,13 @@
-// server/routes/match.js
-const express = require('express');
-const router = express.Router();
+// src/routes/match.js
+import express from 'express';
+import { users } from './users.js';
 
+const router = express.Router();
 const mentorsQueue = [];
 const menteesQueue = [];
 
 router.post('/', (req, res) => {
   const { id, role } = req.body;
-
   if (!id || !role) {
     return res.status(400).json({ error: "Missing id or role" });
   }
@@ -35,4 +35,4 @@ router.post('/', (req, res) => {
   return res.status(400).json({ error: "Invalid role" });
 });
 
-module.exports = router;
+export default router;
